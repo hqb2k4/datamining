@@ -1,0 +1,9 @@
+services:
+  emotion-analysis:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ../model:/model:ro
+    environment:
+      - MODEL_DIR=/model

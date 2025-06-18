@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Emotion Analysis</h1>
+        <div class="input-section">
+            <textarea id="text-input" placeholder="Enter your text here..."></textarea>
+            <button id="analyze-btn">Analyze</button>
+        </div>
+        <div class="result-section" id="result-section">
+            <div class="emotion-result">
+                <h2>Predicted Emotion: <span id="emotion"></span></h2>
+            </div>
+            <div class="chart-container">
+                <canvas id="emotion-chart"></canvas>
+            </div>
+        </div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analyzing...</p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
