@@ -5,18 +5,18 @@
 ## Cấu trúc thư mục
 
 ./web/
-  ├── static/                # Chứa các tệp tĩnh
-  │   ├── css/
-  │   │   └── style.css
-  │   └── js/
-  │       └── script.js
-  ├── templates/             # Chứa các tệp HTML
-  │   └── index.html
-  ├── app.py                 # Ứng dụng Flask
-  ├── requirements.txt       # Thư viện cần thiết
-  ├── Dockerfile             # Cấu hình Docker
-  ├── docker-compose.yml     # Cấu hình Docker Compose
-  └── README.md              # Hướng dẫn sử dụng
+    static/                # Chứa các tệp tĩnh
+        css/
+            style.css
+        js/
+            script.js
+    templates/             # Chứa các tệp HTML
+        index.html
+    app.py                 # Ứng dụng Flask
+    requirements.txt       # Thư viện cần thiết
+    Dockerfile             # Cấu hình Docker
+    docker-compose.yml     # Cấu hình Docker Compose
+    README.md              # Hướng dẫn sử dụng
 
 Tính năng
 - Phân tích cảm xúc văn bản: Nhận diện 8 loại cảm xúc (anger, disgust, fear, joy, neutral, sadness, shame, surprise)
