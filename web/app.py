@@ -149,6 +149,11 @@ def index():
     logger.info("Index page requested")
     return render_template('index.html')
 
+@app.route('/lstm')
+def lstm():
+    logger.info("LSTM information page requested")
+    return render_template('lstm.html')
+
 @app.route('/analyze', methods=['POST'])
 def analyze():
     logger.info("Analysis request received")

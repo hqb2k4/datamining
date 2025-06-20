@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="LSTM - Long Short-Term Memory" data-vi="LSTM - Bộ Nhớ Dài Ngắn Hạn">LSTM - Bộ Nhớ Dài Ngắn Hạn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    {% with active_page = 'lstm' %}
+        {% include 'includes/header.html' %}
+    {% endwith %}
+
+    <main>
+        <div class="container">
+            <section class="hero">
+                <h1 data-en="LSTM - Long Short-Term Memory" data-vi="LSTM - Bộ Nhớ Dài Ngắn Hạn">LSTM - Bộ Nhớ Dài Ngắn Hạn</h1>
+                <p class="subtitle" data-en="Understanding the technology behind emotion analysis" data-vi="Hiểu về công nghệ đằng sau phân tích cảm xúc">Hiểu về công nghệ đằng sau phân tích cảm xúc</p>
+            </section>
+            
+            <div class="content-section">
+                <h2 data-en="What is LSTM?" data-vi="LSTM là gì?">LSTM là gì?</h2>
+                <p data-en="Long Short-Term Memory (LSTM) is an advanced version of Recurrent Neural Networks (RNN) designed by Hochreiter and Schmidhuber. LSTM can capture long-term dependencies in sequential data, making them ideal for tasks like language translation, speech recognition, and time series forecasting." data-vi="Long Short-Term Memory (LSTM) là phiên bản nâng cao của Mạng Nơ-ron Hồi quy (RNN) được thiết kế bởi Hochreiter và Schmidhuber. LSTM có khả năng nắm bắt các phụ thuộc dài hạn trong dữ liệu tuần tự, làm cho chúng lý tưởng cho các tác vụ như dịch ngôn ngữ, nhận dạng giọng nói và dự báo chuỗi thời gian.">Long Short-Term Memory (LSTM) là phiên bản nâng cao của Mạng Nơ-ron Hồi quy (RNN) được thiết kế bởi Hochreiter và Schmidhuber. LSTM có khả năng nắm bắt các phụ thuộc dài hạn trong dữ liệu tuần tự, làm cho chúng lý tưởng cho các tác vụ như dịch ngôn ngữ, nhận dạng giọng nói và dự báo chuỗi thời gian.</p>
+                
+                <p data-en="Unlike traditional RNNs that use a single hidden state passed through time, LSTM introduces a memory cell that can retain information over extended periods, addressing the challenge of learning long-term dependencies." data-vi="Không giống như RNN truyền thống sử dụng một trạng thái ẩn được truyền qua thời gian, LSTM giới thiệu một ô nhớ có thể lưu giữ thông tin trong thời gian dài, giải quyết thách thức học các phụ thuộc dài hạn.">Không giống như RNN truyền thống sử dụng một trạng thái ẩn được truyền qua thời gian, LSTM giới thiệu một ô nhớ có thể lưu giữ thông tin trong thời gian dài, giải quyết thách thức học các phụ thuộc dài hạn.</p>
+                
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='img/lstm_intro.webp') }}" alt="Giới thiệu về LSTM">
+                </div>
+                
+                <h2 data-en="Issues with Long-term Dependencies in RNN" data-vi="Vấn đề với Phụ thuộc Dài hạn trong RNN">Vấn đề với Phụ thuộc Dài hạn trong RNN</h2>
+                <p data-en="Recurrent Neural Networks (RNNs) are designed to process sequential data by maintaining a hidden state that captures information from previous time steps. However, they often face challenges in learning long-term dependencies, when information from distant time steps becomes crucial for accurate predictions for the current state. This problem is known as the vanishing gradient or exploding gradient problem." data-vi="Mạng Nơ-ron Hồi quy (RNN) được thiết kế để xử lý dữ liệu tuần tự bằng cách duy trì trạng thái ẩn nắm bắt thông tin từ các bước thời gian trước đó. Tuy nhiên, chúng thường gặp thách thức trong việc học các phụ thuộc dài hạn, khi thông tin từ các bước thời gian xa trở nên quan trọng để đưa ra dự đoán chính xác cho trạng thái hiện tại. Vấn đề này được gọi là vấn đề gradient biến mất hoặc gradient bùng nổ.">Mạng Nơ-ron Hồi quy (RNN) được thiết kế để xử lý dữ liệu tuần tự bằng cách duy trì trạng thái ẩn nắm bắt thông tin từ các bước thời gian trước đó. Tuy nhiên, chúng thường gặp thách thức trong việc học các phụ thuộc dài hạn, khi thông tin từ các bước thời gian xa trở nên quan trọng để đưa ra dự đoán chính xác cho trạng thái hiện tại. Vấn đề này được gọi là vấn đề gradient biến mất hoặc gradient bùng nổ.</p>
+                
+                <ul>
+                    <li><strong data-en="Vanishing Gradient:" data-vi="Gradient biến mất:">Gradient biến mất:</strong> <span data-en="When training a model over time, the gradients that help the model learn can shrink as they pass through many steps. This makes it hard for the model to learn long-term patterns since earlier information becomes almost irrelevant." data-vi="Khi huấn luyện mô hình theo thời gian, gradient giúp mô hình học có thể thu nhỏ khi chúng truyền qua nhiều bước. Điều này khiến mô hình khó học các mẫu dài hạn vì thông tin trước đó trở nên gần như không liên quan.">Khi huấn luyện mô hình theo thời gian, gradient giúp mô hình học có thể thu nhỏ khi chúng truyền qua nhiều bước. Điều này khiến mô hình khó học các mẫu dài hạn vì thông tin trước đó trở nên gần như không liên quan.</span></li>
+                    <li><strong data-en="Exploding Gradient:" data-vi="Gradient bùng nổ:">Gradient bùng nổ:</strong> <span data-en="Sometimes gradients can grow too large causing instability. This makes it difficult for the model to learn properly as the updates to the model become erratic and unpredictable." data-vi="Đôi khi gradient có thể tăng quá lớn gây ra sự bất ổn định. Điều này khiến mô hình khó học đúng cách vì các cập nhật trở nên bất thường và khó dự đoán.">Đôi khi gradient có thể tăng quá lớn gây ra sự bất ổn định. Điều này khiến mô hình khó học đúng cách vì các cập nhật trở nên bất thường và khó dự đoán.</span></li>
+                </ul>
+                
+                <h2 data-en="LSTM Architecture" data-vi="Kiến trúc LSTM">Kiến trúc LSTM</h2>
+                <p data-en="LSTM architecture involves a memory cell controlled by three gates:" data-vi="Kiến trúc LSTM bao gồm ô nhớ được kiểm soát bởi ba cổng:">Kiến trúc LSTM bao gồm ô nhớ được kiểm soát bởi ba cổng:</p>
+                
+                <ul>
+                    <li><strong data-en="Input gate:" data-vi="Cổng đầu vào:">Cổng đầu vào (Input gate):</strong> <span data-en="Controls what information is added to the memory cell." data-vi="Kiểm soát thông tin nào được thêm vào ô nhớ.">Kiểm soát thông tin nào được thêm vào ô nhớ.</span></li>
+                    <li><strong data-en="Forget gate:" data-vi="Cổng quên:">Cổng quên (Forget gate):</strong> <span data-en="Determines what information is removed from the memory cell." data-vi="Xác định thông tin nào bị loại bỏ khỏi ô nhớ.">Xác định thông tin nào bị loại bỏ khỏi ô nhớ.</span></li>
+                    <li><strong data-en="Output gate:" data-vi="Cổng đầu ra:">Cổng đầu ra (Output gate):</strong> <span data-en="Controls what information is output from the memory cell." data-vi="Kiểm soát thông tin nào được xuất ra từ ô nhớ.">Kiểm soát thông tin nào được xuất ra từ ô nhớ.</span></li>
+                </ul>
+                
+                <p data-en="This allows LSTM networks to selectively retain or discard information as it flows through the network, allowing them to learn long-term dependencies." data-vi="Điều này cho phép mạng LSTM chọn lọc giữ lại hoặc loại bỏ thông tin khi nó chảy qua mạng, cho phép chúng học các phụ thuộc dài hạn.">Điều này cho phép mạng LSTM chọn lọc giữ lại hoặc loại bỏ thông tin khi nó chảy qua mạng, cho phép chúng học các phụ thuộc dài hạn.</p>
+                
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='img/lstm_gates.webp') }}" alt="Các cổng trong LSTM">
+                </div>
+                
+                <h2 data-en="How LSTM Works" data-vi="Cách hoạt động của LSTM">Cách hoạt động của LSTM</h2>
+                <p data-en="LSTM architecture has a chain structure that contains four neural networks and different memory blocks called cells." data-vi="Kiến trúc LSTM có cấu trúc chuỗi chứa bốn mạng nơ-ron và các khối bộ nhớ khác nhau gọi là các ô (cells).">Kiến trúc LSTM có cấu trúc chuỗi chứa bốn mạng nơ-ron và các khối bộ nhớ khác nhau gọi là các ô (cells).</p>
+                
+                <h3 data-en="1. Forget Gate" data-vi="1. Cổng quên (Forget Gate)">1. Cổng quên (Forget Gate)</h3>
+                <p data-en="The information that is no longer useful in the cell state is removed with the forget gate. Two inputs xt (input at the particular time) and ht-1 (previous cell output) are fed to the gate and multiplied with weight matrices followed by the addition of bias. The resultant is passed through an activation function which gives a binary output." data-vi="Thông tin không còn hữu ích trong trạng thái ô được loại bỏ bằng cổng quên. Hai đầu vào xt (đầu vào tại thời điểm cụ thể) và ht-1 (đầu ra ô trước đó) được đưa vào cổng và nhân với ma trận trọng số, sau đó cộng với độ lệch. Kết quả được đưa qua hàm kích hoạt tạo ra đầu ra nhị phân.">Thông tin không còn hữu ích trong trạng thái ô được loại bỏ bằng cổng quên. Hai đầu vào x<sub>t</sub> (đầu vào tại thời điểm cụ thể) và h<sub>t-1</sub> (đầu ra ô trước đó) được đưa vào cổng và nhân với ma trận trọng số, sau đó cộng với độ lệch. Kết quả được đưa qua hàm kích hoạt tạo ra đầu ra nhị phân.</p>
+                
+                <p data-en="The equation for the forget gate is: ft = σ(Wf · [ht-1, xt] + bf)" data-vi="Phương trình cho cổng quên là: ft = σ(Wf · [ht-1, xt] + bf)">Phương trình cho cổng quên là: f<sub>t</sub> = σ(W<sub>f</sub> · [h<sub>t-1</sub>, x<sub>t</sub>] + b<sub>f</sub>)</p>
+                
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='img/forget_gate.webp') }}" alt="Cổng quên">
+                </div>
+                
+                <h3 data-en="2. Input Gate" data-vi="2. Cổng đầu vào (Input Gate)">2. Cổng đầu vào (Input Gate)</h3>
+                <p data-en="The addition of useful information to the cell state is done by the input gate. First, the information is regulated using the sigmoid function and filter the values to be remembered similar to the forget gate." data-vi="Việc thêm thông tin hữu ích vào trạng thái ô được thực hiện bởi cổng đầu vào. Đầu tiên, thông tin được điều chỉnh bằng hàm sigmoid và lọc các giá trị cần ghi nhớ.">Việc thêm thông tin hữu ích vào trạng thái ô được thực hiện bởi cổng đầu vào. Đầu tiên, thông tin được điều chỉnh bằng hàm sigmoid và lọc các giá trị cần ghi nhớ.</p>
+                
+                <p data-en="The equations for the input gate are:" data-vi="Phương trình cho cổng đầu vào là:">Phương trình cho cổng đầu vào là:</p>
+                <p data-en="it = σ(Wi · [ht-1, xt] + bi)" data-vi="it = σ(Wi · [ht-1, xt] + bi)">i<sub>t</sub> = σ(W<sub>i</sub> · [h<sub>t-1</sub>, x<sub>t</sub>] + b<sub>i</sub>)</p>
+                <p data-en="Ĉt = tanh(Wc · [ht-1, xt] + bc)" data-vi="Ĉt = tanh(Wc · [ht-1, xt] + bc)">Ĉ<sub>t</sub> = tanh(W<sub>c</sub> · [h<sub>t-1</sub>, x<sub>t</sub>] + b<sub>c</sub>)</p>
+                <p data-en="Ct = ft ⊙ Ct-1 + it ⊙ Ĉt" data-vi="Ct = ft ⊙ Ct-1 + it ⊙ Ĉt">C<sub>t</sub> = f<sub>t</sub> ⊙ C<sub>t-1</sub> + i<sub>t</sub> ⊙ Ĉ<sub>t</sub></p>
+                
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='img/input_gate.webp') }}" alt="Cổng đầu vào">
+                </div>
+                
+                <h3 data-en="3. Output Gate" data-vi="3. Cổng đầu ra (Output Gate)">3. Cổng đầu ra (Output Gate)</h3>
+                <p data-en="The task of extracting useful information from the current cell state to be presented as output is done by the output gate." data-vi="Nhiệm vụ trích xuất thông tin hữu ích từ trạng thái ô hiện tại để trình bày dưới dạng đầu ra được thực hiện bởi cổng đầu ra.">Nhiệm vụ trích xuất thông tin hữu ích từ trạng thái ô hiện tại để trình bày dưới dạng đầu ra được thực hiện bởi cổng đầu ra.</p>
+                
+                <p data-en="The equation for the output gate is: ot = σ(Wo · [ht-1, xt] + bo)" data-vi="Phương trình cho cổng đầu ra là: ot = σ(Wo · [ht-1, xt] + bo)">Phương trình cho cổng đầu ra là: o<sub>t</sub> = σ(W<sub>o</sub> · [h<sub>t-1</sub>, x<sub>t</sub>] + b<sub>o</sub>)</p>
+                
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='img/output_gate.webp') }}" alt="Cổng đầu ra">
+                </div>
+                
+                <h2 data-en="Applications of LSTM" data-vi="Ứng dụng của LSTM">Ứng dụng của LSTM</h2>
+                <p data-en="Some of the popular applications of LSTM include:" data-vi="Một số ứng dụng nổi tiếng của LSTM bao gồm:">Một số ứng dụng nổi tiếng của LSTM bao gồm:</p>
+                
+                <ul>
+                    <li><strong data-en="Language Modeling:" data-vi="Mô hình hóa ngôn ngữ:">Mô hình hóa ngôn ngữ:</strong> <span data-en="Used in tasks like language modeling, machine translation and text summarization." data-vi="Được sử dụng trong các tác vụ như mô hình hóa ngôn ngữ, dịch máy và tóm tắt văn bản.">Được sử dụng trong các tác vụ như mô hình hóa ngôn ngữ, dịch máy và tóm tắt văn bản.</span></li>
+                    <li><strong data-en="Speech Recognition:" data-vi="Nhận dạng giọng nói:">Nhận dạng giọng nói:</strong> <span data-en="Used in transcribing speech to text and recognizing spoken commands." data-vi="Dùng trong chuyển đổi giọng nói thành văn bản và nhận dạng lệnh nói.">Dùng trong chuyển đổi giọng nói thành văn bản và nhận dạng lệnh nói.</span></li>
+                    <li><strong data-en="Time Series Forecasting:" data-vi="Dự báo chuỗi thời gian:">Dự báo chuỗi thời gian:</strong> <span data-en="Used for predicting stock prices, weather and energy consumption." data-vi="Dùng để dự đoán giá cổ phiếu, thời tiết và tiêu thụ năng lượng.">Dùng để dự đoán giá cổ phiếu, thời tiết và tiêu thụ năng lượng.</span></li>
+                    <li><strong data-en="Anomaly Detection:" data-vi="Phát hiện bất thường:">Phát hiện bất thường:</strong> <span data-en="Used for detecting fraud or network intrusions." data-vi="Được sử dụng để phát hiện gian lận hoặc xâm nhập mạng.">Được sử dụng để phát hiện gian lận hoặc xâm nhập mạng.</span></li>
+                    <li><strong data-en="Recommender Systems:" data-vi="Hệ thống đề xuất:">Hệ thống đề xuất:</strong> <span data-en="In recommendation tasks like suggesting movies, music and books." data-vi="Trong các tác vụ đề xuất như đề xuất phim, nhạc và sách.">Trong các tác vụ đề xuất như đề xuất phim, nhạc và sách.</span></li>
+                    <li><strong data-en="Video Analysis:" data-vi="Phân tích video:">Phân tích video:</strong> <span data-en="Applied in tasks such as object detection, activity recognition and action classification." data-vi="Áp dụng trong các tác vụ như phát hiện đối tượng, nhận dạng hoạt động và phân loại hành động.">Áp dụng trong các tác vụ như phát hiện đối tượng, nhận dạng hoạt động và phân loại hành động.</span></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    {% include 'includes/footer.html' %}
+
+    <script src="{{ url_for('static', filename='js/language.js') }}"></script>
+</body>
+</html>

@@ -3,30 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emotion Analysis</title>
+    <title data-en="Emotion Analysis" data-vi="Phân Tích Cảm Xúc">Emotion Analysis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Emotion Analysis</h1>
-        <div class="input-section">
-            <textarea id="text-input" placeholder="Enter your text here..."></textarea>
-            <button id="analyze-btn">Analyze</button>
+    {% with active_page = 'index' %}
+        {% include 'includes/header.html' %}
+    {% endwith %}
+
+    <main>
+        <div class="container">
+            <section class="hero">
+                <h1 data-en="Text Emotion Analysis" data-vi="Phân Tích Cảm Xúc Văn Bản">Text Emotion Analysis</h1>
+                <p class="subtitle" data-en="Analyze the emotional content of your text using advanced LSTM neural networks" data-vi="Phân tích nội dung cảm xúc của văn bản bằng mạng nơ-ron LSTM tiên tiến">Analyze the emotional content of your text using advanced LSTM neural networks</p>
+            </section>
+            
+            <section class="analysis-panel">
+                <div class="input-section">
+                    <h2><i class="fas fa-keyboard"></i> <span data-en="Input Text" data-vi="Nhập Văn Bản">Input Text</span></h2>
+                    <textarea id="text-input" data-en-placeholder="Enter your text here to analyze the emotional content..." data-vi-placeholder="Nhập văn bản của bạn vào đây để phân tích nội dung cảm xúc..." placeholder="Enter your text here to analyze the emotional content..."></textarea>
+                    <button id="analyze-btn"><i class="fas fa-search"></i> <span data-en="Analyze Emotion" data-vi="Phân Tích Cảm Xúc">Analyze Emotion</span></button>
+                </div>
+                
+                <div class="result-section" id="result-section">
+                    <div class="emotion-result">
+                        <h2><i class="fas fa-chart-pie"></i> <span data-en="Analysis Results" data-vi="Kết Quả Phân Tích">Analysis Results</span></h2>
+                        <div class="emotion-card">
+                            <div class="emotion-icon">
+                                <i class="fas fa-smile-beam"></i>
+                            </div>
+                            <div class="emotion-details">
+                                <h3 data-en="Predicted Emotion:" data-vi="Cảm Xúc Dự Đoán:">Predicted Emotion:</h3>
+                                <span id="emotion" class="emotion-value">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3 data-en="Emotion Confidence Scores" data-vi="Điểm Tin Cậy Cảm Xúc">Emotion Confidence Scores</h3>
+                        <canvas id="emotion-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p data-en="Analyzing your text..." data-vi="Đang phân tích văn bản của bạn...">Analyzing your text...</p>
+                </div>
+            </section>
+            
+            <section class="info-section">
+                <div class="info-card">
+                    <i class="fas fa-info-circle"></i>
+                    <h3 data-en="How It Works" data-vi="Cách Hoạt Động">How It Works</h3>
+                    <p data-en="This tool uses LSTM (Long Short-Term Memory) neural networks to analyze and detect emotions in text. The model has been trained on a large dataset of emotion-labeled texts." data-vi="Công cụ này sử dụng mạng nơ-ron LSTM (Bộ Nhớ Dài Ngắn Hạn) để phân tích và phát hiện cảm xúc trong văn bản. Mô hình đã được đào tạo trên một tập dữ liệu lớn các văn bản được gắn nhãn cảm xúc.">This tool uses LSTM (Long Short-Term Memory) neural networks to analyze and detect emotions in text. The model has been trained on a large dataset of emotion-labeled texts.</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3 data-en="Try Examples" data-vi="Thử Các Ví Dụ">Try Examples</h3>
+                    <p data-en="Try phrases like 'I'm so happy today!', 'This makes me angry', or 'I feel sad about what happened' to see the analysis in action." data-vi="Hãy thử các cụm từ như 'Tôi rất vui hôm nay!', 'Điều này làm tôi tức giận', hoặc 'Tôi cảm thấy buồn về những gì đã xảy ra' để xem phân tích hoạt động.">Try phrases like "I'm so happy today!", "This makes me angry", or "I feel sad about what happened" to see the analysis in action.</p>
+                </div>
+            </section>
         </div>
-        <div class="result-section" id="result-section">
-            <div class="emotion-result">
-                <h2>Predicted Emotion: <span id="emotion"></span></h2>
-            </div>
-            <div class="chart-container">
-                <canvas id="emotion-chart"></canvas>
-            </div>
-        </div>
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p>Analyzing...</p>
-        </div>
-    </div>
+    </main>
+
+    {% include 'includes/footer.html' %}
+
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/language.js') }}"></script>
 </body>
 </html>

@@ -1,0 +1,20 @@
+<header>
+    <div class="header-container">
+        <div class="logo">
+            <i class="fas fa-brain"></i>
+            <span>Emotion AI</span>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="{{ url_for('index') }}" {% if active_page == 'index' %}class="active"{% endif %} data-en="Analysis Tool" data-vi="Công Cụ Phân Tích">Analysis Tool</a></li>
+                <li><a href="{{ url_for('lstm') }}" {% if active_page == 'lstm' %}class="active"{% endif %} data-en="LSTM Technology" data-vi="Công Nghệ LSTM">LSTM Technology</a></li>
+            </ul>
+        </nav>
+        <div class="language-selector">
+            <button id="language-toggle" class="language-btn">
+                <i class="fas fa-globe"></i>
+                <span class="current-lang">EN</span>
+            </button>
+        </div>
+    </div>
+</header>
